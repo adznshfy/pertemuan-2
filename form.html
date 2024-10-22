@@ -4,26 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Mahasiswa</title>
+
+    <style>
+        body {
+            background-color: bisque;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-box {
+            background-color: azure;
+            padding: 40px;
+            border-radius: 10px;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        #clock {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        h3 {
+            text-align: left;
+            color: aquamarine;
+        }
+
+        label {
+            display: block;
+            margin: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px;
+            border-radius: 4px;
+        }
+
+        button{
+            width: 100%;
+            padding: 10px;
+            background-color: beige;
+            color: black;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color:beige;
+        }
+
+    </style>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000);
+
+function addForm() {
+    const formArea = document.getElementById('form-area');
+    const newForm = document.createElement('div');
+    newForm.classList.add('form-container');
+    newForm.innerHTML = `
+        <h3>Tambah Mahasiswa</h3>
+        <form onsubmit="handleSubmit(event)">
+            <label for="nama">Nama</label>
+            <input type="text" name="nama" onblur="convertToUppercase(this)" required>
+
+            <label for="nim">NIM</label>
+            <input type="text" name="nim" required>
+
+            <label for="jenis_kelamin">Jenis Kelamin</label>
+            <select name="jenis_kelamin" required>
+                <option value="Laki-Laki">Laki-Laki</option>
+                <option value="Perempuan">Perempuan</option>
+            </select>
+
+            <button type="submit">Submit</button>
+                </form>
+            `;
+            formArea.appendChild(newForm);
+        }
+
+        // Fungsi untuk mengubah input nama menjadi uppercase
+        function convertToUppercase(input) {
+            input.value = input.value.toUpperCase();
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Selamat, data telah berhasil di simpan');
+            window.location.reload();
+        }
+
+    </script>
 </head>
-<body>
-    <h2 style="text-align: center; margin-bottom: 20px; color: brown;">
+<body onload="updateClock">
+
+    <div id="clock"></div>
+
+    <div id="form-area">
+        <div class="form-box">
+            <h2 style="text-align: center; margin-bottom: 20px; color: brown;">
         Halaman Tambah Mahasiswa
-    </h2>
-    <form style="text-align: center;">
-        <label for="Nama">Nama:</label>
-        <input type="text"><br>
-        <br>
-        <label for="NIM">NIM:</label>
-        <input type="Number"><br>
-        <br>
-        <label for="Jenis Kelamin">Jenis Kelamin</label>
-        <select name="select_gender">
-            <option>-- Pilih Jenis Kelamin --</option>
-            <option>Pria</option>
-            <option>Wanita</option>
-        </select>
-        <br>
-        <button style="color: brown;">Submit</button>
-    </form>
+            </h2>
+            <form onsubmit="handleSubmit(event)" style="text-align: center;">
+                <label for="Nama">Nama:</label>
+                <input type="text" name="nama" onblur="convertToUppercase(this)" required>
+                <br>
+                <label for="NIM">NIM:</label>
+                <input type="Number"><br>
+                <br>
+                <label for="Jenis Kelamin">Jenis Kelamin</label>
+                <select name="select_gender">
+                    <option>-- Pilih Jenis Kelamin --</option>
+                    <option>Pria</option>
+                    <option>Wanita</option>
+                    </select>
+                     <br>
+                    <button style="color: brown;">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <button onclick="addForm()">Tambah Form Baru</button>
 </body>
 </html>
